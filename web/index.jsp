@@ -17,6 +17,7 @@
     </script>
 </head>
 <body>
+<div>${loginuser.name}，欢迎您登录！</div>
 <div align="center">
     <a
             href="${pageContext.request.contextPath}/userListServlet" style="text-decoration:none;font-size:33px">查询所有用户信息

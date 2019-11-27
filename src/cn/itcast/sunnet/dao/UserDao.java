@@ -10,4 +10,8 @@ import java.util.List;
  */
 public interface UserDao {
     public List<User> findAll();
+    public User findUserByUsernameAndPassword(String username,String password);
+    public int add(User user);
+    int delete(int id);
+    User getUser(int id);
 }

@@ -18,4 +18,10 @@ public interface UserService {
      * @throws:
      */
     public List<User> FindAll();
+
+    public User findUserByUsernameAndPassword(String username, String password);
+
+    public int add(User user);
+
+    int delete(int id);
 }

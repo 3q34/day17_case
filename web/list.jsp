@@ -24,12 +24,41 @@
             text-align: center;
         }
     </style>
+    <script>
+        function deleteUser(id) {
+            if (confirm("您确定删除该数据？"))
+                location.href = " ${pageContext.request.contextPath}/deleteUserServlet?id=" + id;
+        }
+
+    </script>
 </head>
 <body>
 <div class="container">
     <h3 style="text-align: center">用户信息列表</h3>
+    <div style="float: left;">
+        <form class="form-inline" role="form">
+            <div class="form-group">
+                <label for="name">姓名</label>
+                <input type="text" class="form-control" id="name" placeholder="请输入籍贯">
+            </div>
+            <div class="form-group">
+                <label for="address">籍贯</label>
+                <input type="text" class="form-control" id="address" placeholder="请输入籍贯">
+            </div>
+            <div class="form-group">
+                <label for="email">邮箱</label>
+                <input type="text" class="form-control" id="email" placeholder="请输入邮箱">
+            </div>
+            <button type="submit" class="btn btn-default">查询</button>
+        </form>
+    </div>
+
+    <div style="float: right;margin:5px ">
+        <a class="btn btn-primary" href="add.jsp">添加联系人</a>
+        <a class="btn btn-primary" href="add.jsp">删除联系人</a></div>
     <table border="1" class="table table-bordered table-hover">
         <tr class="success">
+            <th><input type="checkbox"></th>
             <th>编号</th>
             <th>姓名</th>
             <th>性别</th>
@@ -41,6 +70,7 @@
         </tr>
         <c:forEach items="${users}" var="user" varStatus="s">
             <tr>
+                <td><input type="checkbox"></td>
                 <td>${user.id}</td>
                 <td>${user.name}</td>
                 <td>${user.gender}</td>
@@ -48,17 +78,35 @@
                 <td>${user.address}</td>
                 <td>${user.qq}</td>
                 <td>${user.email}</td>
-                <td><a class="btn btn-default btn-sm" href="update.html">修改</a>&nbsp;<a class="btn btn-default btn-sm" href="">删除</a></td>
+                <td><a class="btn btn-default btn-sm" href="${pageContext.request.contextPath}/getUserServlet?user=${user}">修改</a>&nbsp;
+                    <a class="btn btn-default btn-sm"
+                       href="javascript:deleteUser(${user.id})">删除</a></td>
             </tr>
         </c:forEach>
 
-
-
-
-        <tr>
-            <td colspan="8" align="center"><a class="btn btn-primary" href="add.html">添加联系人</a></td>
-        </tr>
     </table>
+    <div>
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                <li>
+                    <a href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li>
+                    <a href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+                <span style="font-size: 25px;margin-left: 5px">共一条，共二页</span>
+            </ul>
+        </nav>
+    </div>
 </div>
 </body>
 </html>

@@ -28,4 +28,19 @@ public class UserServiceImpl implements UserService {
     public List<User> FindAll() {
         return dao.findAll();
     }
+
+    @Override
+    public User findUserByUsernameAndPassword(String username, String password) {
+        return dao.findUserByUsernameAndPassword(username, password);
+    }
+
+    @Override
+    public int add(User user) {
+        return dao.add(user);
+    }
+
+    @Override
+    public int delete(int id) {
+        return dao.delete(id);
+    }
 }
