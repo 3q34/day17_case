@@ -1,6 +1,8 @@
 package cn.itcast.sunnet.web.servlet;
 
 import cn.itcast.sunnet.domian.User;
+import cn.itcast.sunnet.service.UserService;
+import cn.itcast.sunnet.service.impl.UserServiceImpl;
 import org.apache.commons.beanutils.BeanUtils;
 
 import javax.servlet.ServletException;
@@ -16,8 +18,8 @@ import java.util.Map;
  * Created by cdx on 2019/11/27.
  * desc:
  */
-@WebServlet("/modifyUserServlet")
-public class ModifyUserServlet extends HttpServlet {
+@WebServlet("/updateUserServlet")
+public class UpdateUserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         this.doPost(req, resp);
@@ -35,8 +37,16 @@ public class ModifyUserServlet extends HttpServlet {
         } catch (InvocationTargetException e) {
             e.printStackTrace();
         }
-        req.setAttribute("user", user);
-        req.getRequestDispatcher("/update.jsp").forward(req, resp);
+        UserService service = new UserServiceImpl();
+        int count = service.update(user);
+        if (count > 0) {
+            resp.sendRedirect(req.getContextPath() + "/userListServlet");
+            //req.getRequestDispatcher("/userListServlet").forward(req, resp);
+        } else {
+//            req.setAttribute("user", user);
+            req.getRequestDispatcher("/update.jsp").forward(req, resp);
+        }
+
 
     }
 }

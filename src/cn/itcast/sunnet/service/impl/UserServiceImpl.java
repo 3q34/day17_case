@@ -43,4 +43,19 @@ public class UserServiceImpl implements UserService {
     public int delete(int id) {
         return dao.delete(id);
     }
+
+    @Override
+    public int update(User user) {
+        return dao.update(user);
+    }
+
+    @Override
+    public User getUserById(int id) {
+        return dao.getUserById(id);
+    }
+
+    @Override
+    public List<User> queryUserByNameAddrEmail(String name, String address, String email) {
+        return dao.queryUserByNameAddrEmail(name, address, email);
+    }
 }

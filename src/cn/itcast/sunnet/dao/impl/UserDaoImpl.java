@@ -6,6 +6,8 @@ import cn.itcast.sunnet.util.JDBCUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -52,10 +54,35 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User getUser(int id) {
+    public User getUserById(int id) {
         String sql = "select * from user where id=?";
-        Map<String, Object> map = template.queryForMap(sql, id, new BeanPropertyRowMapper<>());
+        return template.queryForObject(sql, new BeanPropertyRowMapper<User>(User.class), id);
+    }
 
-        return null;
+    @Override
+    public int update(User user) {
+        String sql = "update user set name=?,gender=?,age=?,address=?,qq=?,email=? where id=?";
+        return template.update(sql, user.getName(), user.getGender(), user.getAge(), user.getAddress(), user.getQq(), user.getEmail(), user.getId());
+    }
+
+    @Override
+    public List<User> queryUserByNameAddrEmail(String name, String address, String email) {
+        List<Object> params = new ArrayList<>();
+        String sql = "select * from user where 1=1";
+        if (name != null && name != "") {
+            sql += "  and name=?";
+            params.add(name);
+        }
+
+        if (address != null && address != "") {
+            sql += " and address=?";
+            params.add(address);
+        }
+        if (email != null && email != "") {
+            sql += "  and email=?";
+            params.add(email);
+        }
+
+        return this.template.query(sql, new BeanPropertyRowMapper<User>(User.class), params.toArray());
     }
 }

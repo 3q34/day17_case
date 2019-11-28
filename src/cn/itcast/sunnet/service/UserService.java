@@ -17,11 +17,16 @@ public interface UserService {
      * @date: 2019/11/26 14:01
      * @throws:
      */
-    public List<User> FindAll();
+    List<User> FindAll();
 
-    public User findUserByUsernameAndPassword(String username, String password);
+    User findUserByUsernameAndPassword(String username, String password);
 
-    public int add(User user);
+    int add(User user);
 
     int delete(int id);
+
+    int update(User user);
+
+    User getUserById(int id);
+    List<User> queryUserByNameAddrEmail(String name, String address, String email);
 }
