@@ -11,22 +11,43 @@ import java.util.List;
 public interface UserService {
     /*
      * @author: cdx
-     * @desc:
-     * @return:
+     * @desc: 
+     * @param  
+     * @return: java.util.List<cn.itcast.sunnet.domian.User>
      * @TO DO:
-     * @date: 2019/11/26 14:01
-     * @throws:
+     * @date: 2019/11/28 17:30
+     * @throws: 
      */
     List<User> FindAll();
 
     User findUserByUsernameAndPassword(String username, String password);
 
+    /*
+     * @author: cdx
+     * @desc: 
+     * @param user 
+     * @return: int
+     * @TO DO:
+     * @date: 2019/11/28 17:29
+     * @throws: 
+     */
     int add(User user);
 
+    /*
+     * @author: cdx
+     * @desc:
+     * @param id
+     * @return: int
+     * @TO DO:
+     * @date: 2019/11/28 17:29
+     * @throws:
+     */
     int delete(int id);
 
     int update(User user);
 
     User getUserById(int id);
+
     List<User> queryUserByNameAddrEmail(String name, String address, String email);
+
 }
