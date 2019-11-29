@@ -95,7 +95,7 @@
                 <th>邮箱</th>
                 <th>操作</th>
             </tr>
-            <c:forEach items="${users}" var="user" varStatus="s">
+            <c:forEach items="${pageBean.list}" var="user" varStatus="s">
                 <tr>
                     <td><input type="checkbox" name="uid" value="${user.id}"></td>
                     <td>${user.id}</td>
@@ -117,22 +117,55 @@
     <div>
         <nav aria-label="Page navigation">
             <ul class="pagination">
-                <li>
-                    <a href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li>
-                    <a href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-                <span style="font-size: 25px;margin-left: 5px">共一条，共二页</span>
+
+                <c:if test="${pageBean.currentPage==1}">
+
+                    <li class="disabled">
+                        <a href="${pageContext.request.contextPath}/findUserByPageServlet?currentPage=${pageBean.currentPage-1<1?1:pageBean.currentPage-1}&pageSize=7"
+                           aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                </c:if>
+                <c:if test="${pageBean.currentPage!=1}">
+
+                    <li>
+                        <a href="${pageContext.request.contextPath}/findUserByPageServlet?currentPage=${pageBean.currentPage-1<1?1:pageBean.currentPage-1}&pageSize=7"
+                           aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                </c:if>
+                <c:forEach begin="1" var="i" varStatus="vst" end="${pageBean.totalPage}">
+
+                    <c:if test="${pageBean.currentPage==i}">
+                        <li class="active">
+                            <a href="${pageContext.request.contextPath}/findUserByPageServlet?currentPage=${i}&pageSize=7">${i}</a>
+                        </li>
+                    </c:if>
+                    <c:if test="${pageBean.currentPage!=i}">
+                        <li>
+                            <a href="${pageContext.request.contextPath}/findUserByPageServlet?currentPage=${i}&pageSize=7">${i}</a>
+                        </li>
+                    </c:if>
+                </c:forEach>
+                <c:if test="${pageBean.currentPage==pageBean.totalPage}">
+                    <li class="disabled">
+                        <a href="${pageContext.request.contextPath}/findUserByPageServlet?currentPage=${pageBean.currentPage+1>pageBean.totalPage?pageBean.totalPage:pageBean.currentPage+1}&pageSize=7"
+                           aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </c:if>
+                <c:if test="${pageBean.currentPage!=pageBean.totalPage}">
+                    <li>
+                        <a href="${pageContext.request.contextPath}/findUserByPageServlet?currentPage=${pageBean.currentPage+1>pageBean.totalPage?pageBean.totalPage:pageBean.currentPage+1}&pageSize=7"
+                           aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </c:if>
+                <span style="font-size: 25px;margin-left: 5px">共${pageBean.totalCount}条，共${pageBean.totalPage}页</span>
             </ul>
         </nav>
     </div>

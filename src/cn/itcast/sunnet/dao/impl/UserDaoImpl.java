@@ -1,6 +1,7 @@
 package cn.itcast.sunnet.dao.impl;
 
 import cn.itcast.sunnet.dao.UserDao;
+import cn.itcast.sunnet.domian.PageBean;
 import cn.itcast.sunnet.domian.User;
 import cn.itcast.sunnet.util.JDBCUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -84,5 +85,23 @@ public class UserDaoImpl implements UserDao {
         }
 
         return this.template.query(sql, new BeanPropertyRowMapper<User>(User.class), params.toArray());
+    }
+
+    @Override
+    public PageBean<User> findUserByPage(int currentPage, int pageSize) {
+        String sql = "select * from user limit ?,? ";
+        int start = (currentPage - 1) * pageSize;
+        List<User> users = template.query(sql, new BeanPropertyRowMapper<>(User.class), start, pageSize);
+        PageBean<User> pageBean = new PageBean<>();
+        pageBean.setCurrentPage(currentPage);
+        pageBean.setList(users);
+        pageBean.setPageSize(pageSize);
+        return pageBean;
+    }
+
+    @Override
+    public int getCount() {
+        String sql = "select count(id) from user";
+        return template.queryForObject(sql, int.class);
     }
 }

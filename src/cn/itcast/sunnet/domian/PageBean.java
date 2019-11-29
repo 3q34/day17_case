@@ -10,7 +10,7 @@ public class PageBean<T> {
     private int totalCount;
     private int totalPage;
     private List<T> list;
-    private int rows;
+    private int pageSize;
     private int currentPage;
 
     public int getTotalCount() {
@@ -37,12 +37,12 @@ public class PageBean<T> {
         this.list = list;
     }
 
-    public int getRows() {
-        return rows;
+    public int getPageSize() {
+        return pageSize;
     }
 
-    public void setRows(int rows) {
-        this.rows = rows;
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
     }
 
     public int getCurrentPage() {
@@ -59,7 +59,7 @@ public class PageBean<T> {
                 "totalCount=" + totalCount +
                 ", totalPage=" + totalPage +
                 ", list=" + list +
-                ", rows=" + rows +
+                ", pageSize=" + pageSize +
                 ", currentPage=" + currentPage +
                 '}';
     }

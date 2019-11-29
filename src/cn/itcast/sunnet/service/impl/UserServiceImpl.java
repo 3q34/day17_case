@@ -2,6 +2,7 @@ package cn.itcast.sunnet.service.impl;
 
 import cn.itcast.sunnet.dao.UserDao;
 import cn.itcast.sunnet.dao.impl.UserDaoImpl;
+import cn.itcast.sunnet.domian.PageBean;
 import cn.itcast.sunnet.domian.User;
 import cn.itcast.sunnet.service.UserService;
 
@@ -57,5 +58,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> queryUserByNameAddrEmail(String name, String address, String email) {
         return dao.queryUserByNameAddrEmail(name, address, email);
+    }
+
+    @Override
+    public PageBean<User> findUserByPage(int currentPage, int pageSize) {
+        return dao.findUserByPage(currentPage,pageSize);
+    }
+
+    @Override
+    public int getCount() {
+        return dao.getCount();
     }
 }
