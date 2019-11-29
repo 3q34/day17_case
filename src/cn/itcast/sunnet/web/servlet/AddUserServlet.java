@@ -42,10 +42,10 @@ public class AddUserServlet extends HttpServlet {
         int count = 0;
         count = service.add(users);
         if (count > 0) {
-            req.getRequestDispatcher("/userListServlet").forward(req, resp);
+            resp.sendRedirect(req.getContextPath() + "/findUserByPageServlet");
 
         } else {
-            req.getRequestDispatcher("/addUserServlet").forward(req, resp);
+            resp.sendRedirect(req.getContextPath() + "/findUserByPageServlet");
         }
     }
 }

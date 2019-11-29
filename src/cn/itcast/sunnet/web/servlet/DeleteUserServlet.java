@@ -34,9 +34,10 @@ public class DeleteUserServlet extends HttpServlet {
         int count = service.delete(id);
         if (count > 0) {
             //弹窗成功
-            req.getRequestDispatcher("/userListServlet").forward(req, resp);
+            resp.sendRedirect(req.getContextPath() + "/findUserByPageServlet");
+            //req.getRequestDispatcher("/findUserByPageServlet").forward(req, resp);
         } else {
-
+            resp.sendRedirect(req.getContextPath() + "/findUserByPageServlet");
         }
     }
 }

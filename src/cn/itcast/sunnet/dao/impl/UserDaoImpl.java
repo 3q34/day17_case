@@ -71,31 +71,58 @@ public class UserDaoImpl implements UserDao {
         List<Object> params = new ArrayList<>();
         String sql = "select * from user where 1=1";
         if (name != null && name != "") {
-            sql += "  and name=?";
-            params.add(name);
+            sql += "  and name like ?";
+            params.add("%" + name + "%");
         }
 
         if (address != null && address != "") {
             sql += " and address=?";
-            params.add(address);
+            params.add("%" + address + "%");
         }
         if (email != null && email != "") {
             sql += "  and email=?";
-            params.add(email);
+            params.add("%" + email + "%");
         }
-
+        System.out.println(sql);
         return this.template.query(sql, new BeanPropertyRowMapper<User>(User.class), params.toArray());
     }
 
     @Override
-    public PageBean<User> findUserByPage(int currentPage, int pageSize) {
-        String sql = "select * from user limit ?,? ";
+    public PageBean<User> findUserByPage(String name, String address, String email, int currentPage, int pageSize) {
+        List<Object> params = new ArrayList<>();
+        String sql = "select * from user where 1=1";
+        String sqlcount = "select count(id) from user where 1=1 ";
+        if (name != null && name != "") {
+            sql += "  and name like ?";
+            sqlcount += "  and name like ?";
+            params.add("%" + name + "%");
+        }
+
+        if (address != null && address != "") {
+            sql += " and address like ?";
+            sqlcount += "  and address like ?";
+            params.add("%" + address + "%");
+        }
+        if (email != null && email != "") {
+            sql += "  and email like ?";
+            sqlcount += "  and email like ?";
+            params.add("%" + email + "%");
+        }
+
+        int totalCount = template.queryForObject(sqlcount, int.class,params.toArray());
+
+        sql += " limit ?,? ";
+        int totalPage = totalCount % pageSize == 0 ? totalCount /pageSize : (totalCount / pageSize) + 1;
         int start = (currentPage - 1) * pageSize;
-        List<User> users = template.query(sql, new BeanPropertyRowMapper<>(User.class), start, pageSize);
+        params.add(start);
+        params.add(pageSize);
+        List<User> users = template.query(sql, new BeanPropertyRowMapper<>(User.class), params.toArray());
         PageBean<User> pageBean = new PageBean<>();
         pageBean.setCurrentPage(currentPage);
         pageBean.setList(users);
         pageBean.setPageSize(pageSize);
+        pageBean.setTotalCount(totalCount);
+        pageBean.setTotalPage(totalPage);
         return pageBean;
     }
 

@@ -62,7 +62,7 @@
 <div class="container">
     <h3 style="text-align: center">用户信息列表</h3>
     <div style="float: left;">
-        <form class="form-inline" role="form" action="${pageContext.request.contextPath}/userListServlet">
+        <form class="form-inline" role="form" action="${pageContext.request.contextPath}/findUserByPageServlet">
             <div class="form-group">
                 <label for="name">姓名</label>
                 <input type="text" class="form-control" name="name" id="name" placeholder="请输入籍贯">

@@ -61,8 +61,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public PageBean<User> findUserByPage(int currentPage, int pageSize) {
-        return dao.findUserByPage(currentPage,pageSize);
+    public PageBean<User> findUserByPage(String name, String address, String email,int currentPage, int pageSize) {
+        return dao.findUserByPage(name,address,email,currentPage,pageSize);
     }
 
     @Override

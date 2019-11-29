@@ -50,6 +50,6 @@ public interface UserService {
     User getUserById(int id);
 
     List<User> queryUserByNameAddrEmail(String name, String address, String email);
-    PageBean<User> findUserByPage(int currentPage, int pageSize);
+    PageBean<User> findUserByPage(String name, String address, String email,int currentPage, int pageSize);
     int getCount();
 }
