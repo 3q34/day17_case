@@ -65,15 +65,15 @@
         <form class="form-inline" role="form" action="${pageContext.request.contextPath}/findUserByPageServlet">
             <div class="form-group">
                 <label for="name">姓名</label>
-                <input type="text" class="form-control" name="name" id="name" placeholder="请输入籍贯">
+                <input type="text" value="${conditon.name[0]}" class="form-control" name="name" id="name" placeholder="请输入籍贯">
             </div>
             <div class="form-group">
                 <label for="address">籍贯</label>
-                <input type="text" class="form-control" id="address" name="address" placeholder="请输入籍贯">
+                <input type="text"  value="${conditon.address[0]}" class="form-control" id="address" name="address" placeholder="请输入籍贯">
             </div>
             <div class="form-group">
                 <label for="email">邮箱</label>
-                <input type="text" class="form-control" id="email" name="email" placeholder="请输入邮箱">
+                <input type="text" value="${conditon.email[0]}" class="form-control" id="email" name="email" placeholder="请输入邮箱">
             </div>
             <button type="submit" class="btn btn-default">查询</button>
         </form>
@@ -121,7 +121,7 @@
                 <c:if test="${pageBean.currentPage==1}">
 
                     <li class="disabled">
-                        <a href="${pageContext.request.contextPath}/findUserByPageServlet?currentPage=${pageBean.currentPage-1<1?1:pageBean.currentPage-1}&pageSize=7"
+                        <a href="${pageContext.request.contextPath}/findUserByPageServlet?currentPage=${pageBean.currentPage-1<1?1:pageBean.currentPage-1}&pageSize=7&name=${conditon.name[0]}&address=${conditon.address[0]}&email=${conditon.email[0]}"
                            aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
@@ -130,7 +130,7 @@
                 <c:if test="${pageBean.currentPage!=1}">
 
                     <li>
-                        <a href="${pageContext.request.contextPath}/findUserByPageServlet?currentPage=${pageBean.currentPage-1<1?1:pageBean.currentPage-1}&pageSize=7"
+                        <a href="${pageContext.request.contextPath}/findUserByPageServlet?currentPage=${pageBean.currentPage-1<1?1:pageBean.currentPage-1}&pageSize=7&name=${conditon.name[0]}&address=${conditon.address[0]}&email=${conditon.email[0]}"
                            aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
@@ -140,18 +140,18 @@
 
                     <c:if test="${pageBean.currentPage==i}">
                         <li class="active">
-                            <a href="${pageContext.request.contextPath}/findUserByPageServlet?currentPage=${i}&pageSize=7">${i}</a>
+                            <a href="${pageContext.request.contextPath}/findUserByPageServlet?currentPage=${i}&pageSize=7&name=${conditon.name[0]}&address=${conditon.address[0]}&email=${conditon.email[0]}">${i}</a>
                         </li>
                     </c:if>
                     <c:if test="${pageBean.currentPage!=i}">
                         <li>
-                            <a href="${pageContext.request.contextPath}/findUserByPageServlet?currentPage=${i}&pageSize=7">${i}</a>
+                            <a href="${pageContext.request.contextPath}/findUserByPageServlet?currentPage=${i}&pageSize=7&name=${conditon.name[0]}&address=${conditon.address[0]}&email=${conditon.email[0]}">${i}</a>
                         </li>
                     </c:if>
                 </c:forEach>
                 <c:if test="${pageBean.currentPage==pageBean.totalPage}">
                     <li class="disabled">
-                        <a href="${pageContext.request.contextPath}/findUserByPageServlet?currentPage=${pageBean.currentPage+1>pageBean.totalPage?pageBean.totalPage:pageBean.currentPage+1}&pageSize=7"
+                        <a href="${pageContext.request.contextPath}/findUserByPageServlet?currentPage=${pageBean.currentPage+1>pageBean.totalPage?pageBean.totalPage:pageBean.currentPage+1}&pageSize=7&name=${conditon.name[0]}&address=${conditon.address[0]}&email=${conditon.email[0]}"
                            aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
@@ -159,7 +159,7 @@
                 </c:if>
                 <c:if test="${pageBean.currentPage!=pageBean.totalPage}">
                     <li>
-                        <a href="${pageContext.request.contextPath}/findUserByPageServlet?currentPage=${pageBean.currentPage+1>pageBean.totalPage?pageBean.totalPage:pageBean.currentPage+1}&pageSize=7"
+                        <a href="${pageContext.request.contextPath}/findUserByPageServlet?currentPage=${pageBean.currentPage+1>pageBean.totalPage?pageBean.totalPage:pageBean.currentPage+1}&pageSize=7&name=${conditon.name[0]}&address=${conditon.address[0]}&email=${conditon.email[0]}"
                            aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>

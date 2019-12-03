@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by cdx on 2019/11/28.
@@ -43,18 +44,10 @@ public class FindUserByPageServlet extends HttpServlet {
             currentPage = Integer.parseInt(currentPage1.toString());
             pageSize = Integer.parseInt(pageSize1.toString());
         }
-        PageBean<User> pageBean =null;
+        Map<String, String[]> map = req.getParameterMap();
+        PageBean<User> pageBean = service.findUserByPage(name, address, email, currentPage, pageSize);
 
-
-        if ((name != "" && name != null) || (address != "" && address != null) || (email != null && email != "")) {
-
-            pageBean = service.findUserByPage(name,address,email,currentPage, pageSize);
-        }
-        else{
-
-            pageBean = service.findUserByPage(name,address,email,currentPage, pageSize);
-        }
-
+        req.setAttribute("conditon", map);
         req.setAttribute("pageBean", pageBean);
         resp.setContentType("text/html;charset=utf-8");
         //resp.sendRedirect(req.getContextPath()+"/list.jsp");
