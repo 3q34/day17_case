@@ -60,6 +60,12 @@
                      <option value="广西">广西</option>
                      <option value="湖南" selected>湖南</option>
                  </c:if>
+                 <c:if test="${user.address!='湖南'&&user.address!='广东'&&user.address!='广西'}">
+                     <option value="广东" >广东</option>
+                     <option value="广西">广西</option>
+                     <option value="湖南">湖南</option>
+                     <option value="${user.address}" selected>${user.address}</option>
+                 </c:if>
             </select>
           </div>
 

@@ -7,7 +7,9 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by cdx on 2019/12/4.
@@ -27,17 +29,35 @@ public class SensitiveWordsFilter implements Filter {
                     if (value != null) {
                         for (String str : list) {
                             if (value.contains(str)) {
-                                value.replaceAll(str, "***");
+                                value = value.replaceAll(str, "***");
                             }
                         }
                     }
                     return value;
                 }
+                if (method.getName().equals("getParameterMap")) {
+                    Map<String, String[]> map = new HashMap( (Map<String, String[]>) method.invoke(req, args));
+                    if (map != null) {
+                        for (String key : map.keySet()) {
+                            String[] values = map.get(key);
+
+                            for (String str : list) {
+                                if (values[0].contains(str)) {
+                                    values[0] = values[0].replaceAll(str, "***");
+                                    map.put(key, values);
+                                }
+                            }
+
+                        }
+
+                    }
+                    return map;
+                }
                 return method.invoke(req, args);
 
             }
         });
-        chain.doFilter(req, resp);
+        chain.doFilter(proxy_req, resp);
     }
 
     private List<String> list = new ArrayList<>();
@@ -52,7 +72,6 @@ public class SensitiveWordsFilter implements Filter {
             while ((line = br.readLine()) != null) {
                 list.add(line);
             }
-            System.out.println(list);
             br.close();
 
         } catch (Exception e) {

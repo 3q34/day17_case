@@ -40,7 +40,7 @@ public class UpdateUserServlet extends HttpServlet {
         UserService service = new UserServiceImpl();
         int count = service.update(user);
         if (count > 0) {
-            resp.sendRedirect(req.getContextPath() + "/userListServlet");
+            resp.sendRedirect(req.getContextPath() + "/findUserByPageServlet");
             //req.getRequestDispatcher("/userListServlet").forward(req, resp);
         } else {
 //            req.setAttribute("user", user);

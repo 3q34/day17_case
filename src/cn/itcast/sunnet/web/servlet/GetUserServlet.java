@@ -29,11 +29,10 @@ public class GetUserServlet extends HttpServlet {
         req.setCharacterEncoding("utf-8");
 
         int id = Integer.parseInt(req.getParameter("id"));
-        System.out.println(id);
+        //System.out.println(id);
         UserService service = new UserServiceImpl();
         User user = service.getUserById(id);
-        System.out.println(user
-        );
+        //System.out.println(user);
         req.setAttribute("user", user);
         req.getRequestDispatcher("/update.jsp").forward(req, resp);
 

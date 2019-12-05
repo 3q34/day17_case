@@ -43,7 +43,7 @@ public class LoginServlet extends HttpServlet {
             if (loginuser != null) {
                 //resp.setContentType("text/html;charset=utf-8");
                 session.setAttribute("loginuser", loginuser);
-                System.out.println(loginuser);
+                //System.out.println(loginuser);
                 //resp.sendRedirect("/list.jsp");
                 req.getRequestDispatcher("/index.jsp").forward(req, resp);
             } else {
